@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Chat from "./pages/Chat";
-import Login from "./pages/Login";
+import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Settings from "./pages/Settings";
 import "./App.css";
