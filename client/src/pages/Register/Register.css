@@ -14,6 +14,16 @@
   justify-content: center;
   flex-direction: column;
 }
+.login_container {
+  height: 30rem;
+  background: #2c2a2a;
+  padding: 2rem 4rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
 .register_logo {
   display: flex;
@@ -79,6 +89,7 @@
   text-decoration: none;
   font-size: 16px;
   margin-bottom: 0.5rem;
+  cursor: pointer;
 }
 
 .register_btn:hover {
