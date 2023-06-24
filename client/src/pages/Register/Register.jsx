@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ReactTypingEffect from "react-typing-effect";
 import axios from "axios";
 import { baseUrl } from "../../API/api";
+import Loader from "../Loader/Loader";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -12,6 +13,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const userData = {
     username,
@@ -21,12 +23,14 @@ function Register() {
   };
 
   const registerUser = async () => {
+    setIsLoading(true);
     await axios
       .post(`${baseUrl}/auth/register`, userData)
       .then((res) => {
+        setIsLoading(false);
         alert(res.data.message);
-        if (res.status === 200 ) {
-          navigate('/login')
+        if (res.status === 200) {
+          navigate("/login");
         }
       })
       .catch((err) => {
@@ -52,6 +56,8 @@ function Register() {
   };
 
   return (
+    <>
+      {isLoading ? <Loader /> : 
       <main className="register">
         <div className="register_container">
           <div className="register_logo">
@@ -126,6 +132,8 @@ function Register() {
           </form>
         </div>
       </main>
+      }
+    </>
   );
 }
 
