@@ -30,7 +30,7 @@ function Register() {
         setIsLoading(false);
         alert(res.data.message);
         if (res.status === 200) {
-          navigate("/login");
+          navigate("/setavatar");
         }
       })
       .catch((err) => {

@@ -1,16 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./Setavatar.css";
 import axios from "axios";
 import { Buffer } from "buffer";
 import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../../API/api.js";
 import Loader from "../../components/Loader/Loader";
+import AuthContext from "../../auth/authContext";
 
 function Setavatar() {
+  const authContext = useContext(AuthContext);
   const navigate = useNavigate();
   const [avatars, setAvatars] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const api = `https://api.multiavatar.com/`;
   const [selectedAvatar, setSelectedAvatar] = useState(undefined);
+
+  const setProfile = async() => {
+    const data = {
+      avatar: avatars[selectedAvatar],
+    };
+    try {
+      await axios.post(
+        `${baseUrl}/user/avatar/${authContext.userId}}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${authContext.token}}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res)
+      if (res.status === 200) {
+        navigate("/");
+      }
+    });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const fetchAvatar = async () => {
     const data = [];
@@ -21,7 +49,6 @@ function Setavatar() {
           process.env.REACT_APP_API_KEY
         }`
       );
-
       const buffer = new Buffer.from(image.data);
       const base64 = buffer.toString("base64");
       data.push(base64);
@@ -67,9 +94,7 @@ function Setavatar() {
             </div>
             <div className="avatar_button_container">
               <button
-                onClick={() => {
-                  navigate("/home");
-                }}
+                onClick={setProfile}
                 className="avatar_button"
               >
                 Choose Avatar

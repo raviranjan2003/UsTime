@@ -5,6 +5,7 @@ import connectDB from "./database/db.js";
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 connectDB();
 dotenv.config();
 const app = express();
@@ -26,6 +27,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/auth", authRoutes);
+app.use('/user', userRoutes);
 
 
 app.listen(port, () => {

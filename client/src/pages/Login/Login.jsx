@@ -21,6 +21,7 @@ function Login() {
         if (res.status === 200) {
           const user = {
             token: res.data.token,
+            userId: res.data.userId,
             expiresIn: res.data.expiresIn,
           }
           authContext.login(user);

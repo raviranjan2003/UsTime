@@ -57,6 +57,7 @@ const Login = async (req, res) => {
         const token = createToken(user._id);
         res.status(200).json({
           token: token,
+          userId: user._id,
           expiresIn: maxAge,
         });
       } else {
