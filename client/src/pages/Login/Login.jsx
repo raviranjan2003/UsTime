@@ -1,9 +1,37 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import ReactTypingEffect from "react-typing-effect";
 import "./Login.css";
+import axios from "axios";
+import { baseUrl } from "../../API/api.js";
+import AuthContext from "../../auth/authContext";
 
 function Login() {
+  const [usernameoremail, setUsernameoremail] = useState("");
+  const [Password, setPassword] = useState("");
+  const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+      await axios.post(`${baseUrl}/auth/login`, {
+        usernameoremail: usernameoremail,
+        password: Password,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          const user = {
+            token: res.data.token,
+            expiresIn: res.data.expiresIn,
+          }
+          authContext.login(user);
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <main className="register">
       <div className="register_container">
@@ -34,17 +62,24 @@ function Login() {
           </div>
         </div>
         <div className="register_field">
-          <div className="register_field_name">
+          <form className="register_field_name">
             <input
               type="text"
-              placeholder="Username"
+              placeholder="Username / Email"
+              onChange={(e) => setUsernameoremail(e.target.value)}
               autoComplete="off"
               required
             />
-            <input type="password" placeholder="Password" required />
-          </div>
+            <input
+              type="password"
+              placeholder="Password"
+              required
+              autoComplete="off"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </form>
           <div className="register_field_button">
-            <button className="register_btn">Login</button>
+            <button className="register_btn" onClick={handleLogin}>Login</button>
             <p>
               Don't have an account ?{" "}
               <Link to="/register">

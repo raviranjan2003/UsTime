@@ -6,18 +6,29 @@ import Register from "./pages/Register/Register";
 import Settings from "./pages/Settings";
 import Setavatar from "./pages/Setavatar/Setavatar";
 import "./App.css";
+import AuthContext from "./auth/authContext";
 
 function App() {
+  const authContext = React.useContext(AuthContext);
+
   return (
-      <Router>
-        <Routes>
-          <Route path="/" element={<Chat />} />
+    <Router>
+      <Routes>
+        {authContext.isUserLoggedIn && <Route path="/" element={<Chat />} />}
+        {!authContext.isUserLoggedIn && (
           <Route path="/login" element={<Login />} />
+        )}
+        {!authContext.isUserLoggedIn && (
           <Route path="/register" element={<Register />} />
+        )}
+        {authContext.isUserLoggedIn && (
           <Route path="/settings" element={<Settings />} />
+        )}
+        {authContext.isUserLoggedIn && (
           <Route path="/setavatar" element={<Setavatar />} />
-        </Routes>
-      </Router>
+        )}
+      </Routes>
+    </Router>
   );
 }
 

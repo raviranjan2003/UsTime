@@ -1,5 +1,13 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+const maxAge = 7 * 24 * 60 * 60;
+const createToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: maxAge,
+  });
+};
 
 const Register = async (req, res) => {
   const { username, name, email, password } = req.body;
@@ -38,17 +46,18 @@ const Register = async (req, res) => {
 };
 
 const Login = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { usernameoremail, password } = req.body;
   try {
     const user = await User.findOne({
-      $or: [{ username: username }, { email: email }],
+      $or: [{ username: usernameoremail }, { email: usernameoremail }],
     });
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
+        const token = createToken(user._id);
         res.status(200).json({
-          message: "Login successful",
-          user,
+          token: token,
+          expiresIn: maxAge,
         });
       } else {
         res.status(400).json({
