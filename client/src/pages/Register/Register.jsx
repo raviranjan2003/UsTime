@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ReactTypingEffect from "react-typing-effect";
 import axios from "axios";
 import { baseUrl } from "../../API/api";
-import Loader from "../Loader/Loader";
+import Loader from "../../components/Loader/Loader";
 
 function Register() {
   const [username, setUsername] = useState("");
