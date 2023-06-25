@@ -26,6 +26,8 @@ function Login() {
           }
           authContext.login(user);
           navigate("/");
+        } else {
+          alert(res.data.message);
         }
       })
       .catch((err) => {

@@ -3,7 +3,6 @@
     "start": "concurrently \"cd server && npm start\" \"cd client && npm start\""
   },
   "dependencies": {
-    "buffer": "^6.0.3",
     "concurrently": "^8.2.0"
   }
 }

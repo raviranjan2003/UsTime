@@ -16,27 +16,32 @@ function Setavatar() {
   const [selectedAvatar, setSelectedAvatar] = useState(undefined);
 
   const setProfile = async() => {
-    const data = {
-      avatar: avatars[selectedAvatar],
-    };
-    try {
-      await axios.post(
-        `${baseUrl}/user/avatar/${authContext.userId}}`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${authContext.token}}`,
-          },
+    if (selectedAvatar === undefined) {
+      alert("Please select an avatar");
+      return;
+    } else {
+      const data = {
+        avatar: avatars[selectedAvatar],
+      };
+      try {
+        await axios.post(
+          `${baseUrl}/user/avatar/${authContext.userId}`,
+          data,
+          {
+            headers: {
+              Authorization: `Bearer ${authContext.token}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res)
+        if (res.status === 200) {
+          navigate("/");
         }
-      )
-      .then((res) => {
-        console.log(res)
-      if (res.status === 200) {
-        navigate("/");
+      });
+      } catch (error) {
+        console.log(error);
       }
-    });
-    } catch (error) {
-      console.log(error);
     }
   }
 
@@ -45,7 +50,7 @@ function Setavatar() {
     for (let i = 0; i < 4; i++) {
       setIsLoading(true);
       const image = await axios.get(
-        `${api}/${Math.round(Math.random() * 10000)}/?apikey=${
+        `${api}/${Math.round(Math.random() * 10000)}?apikey=${
           process.env.REACT_APP_API_KEY
         }`
       );

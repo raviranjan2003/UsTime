@@ -1,11 +1,10 @@
 import User from "../models/user.js";
 
 const setProfilePicture = async (req, res) => {
-  console.log(req.params.id, req.body.avatar);
   try {
     const userId = req.params.id;
     const avatarImage = req.body.avatar;
-    await User.findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
       userId,
       {
         $set: { avatarImage: avatarImage },
@@ -15,8 +14,8 @@ const setProfilePicture = async (req, res) => {
       }
     );
     return res.json({
-      isSet: userData.isAvatarImageSet,
-      image: userData.avatarImage,
+      isSet: user.isAvatarImageSet,
+      image: user.avatarImage,
     });
   } catch (error) {
     console.log(error);

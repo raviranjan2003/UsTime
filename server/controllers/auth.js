@@ -46,26 +46,32 @@ const Register = async (req, res) => {
 };
 
 const Login = async (req, res) => {
+  console.log(req.body)
   const { usernameoremail, password } = req.body;
   try {
-    const user = await User.findOne({
+    await User.findOne({
       $or: [{ username: usernameoremail }, { email: usernameoremail }],
-    });
-    if (user) {
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (isMatch) {
-        const token = createToken(user._id);
-        res.status(200).json({
-          token: token,
-          userId: user._id,
-          expiresIn: maxAge,
+    }).then(async (user) => {
+      if (!user) {
+        return res.status(208).json({
+          message: "User not found",
         });
       } else {
-        res.status(400).json({
-          message: "Incorrect password",
-        });
+          const isMatch = await bcrypt.compare(password, user.password);
+          if (isMatch) {
+            const token = createToken(user._id);
+            res.status(200).json({
+              token: token,
+              userId: user._id,
+              expiresIn: maxAge,
+            });
+          } else {
+            res.status(400).json({
+              message: "Incorrect password",
+            });
+          }
       }
-    }
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({

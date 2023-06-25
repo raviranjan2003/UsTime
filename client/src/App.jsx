@@ -15,18 +15,12 @@ function App() {
     <Router>
       <Routes>
         {authContext.isUserLoggedIn && <Route path="/" element={<Chat />} />}
-        {!authContext.isUserLoggedIn && (
-          <Route path="/login" element={<Login />} />
-        )}
-        {!authContext.isUserLoggedIn && (
-          <Route path="/register" element={<Register />} />
-        )}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         {authContext.isUserLoggedIn && (
           <Route path="/settings" element={<Settings />} />
         )}
-        {authContext.isUserLoggedIn && (
-          <Route path="/setavatar" element={<Setavatar />} />
-        )}
+        <Route path="/setavatar" element={<Setavatar />} />
       </Routes>
     </Router>
   );
