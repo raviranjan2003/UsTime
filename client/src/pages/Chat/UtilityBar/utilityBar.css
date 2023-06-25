@@ -1,0 +1,36 @@
+.app-icon{
+    width: 3rem;
+    position: absolute;
+    top: 3%;
+    left:0.45%;
+}
+.notifications-symbol{
+    width: 2rem;
+    position: absolute;
+    top: 20%;
+    left: 0.8%;
+}
+.group-symbol {
+    width: 2rem;
+    position: absolute;
+    top: 30%;
+    left: 0.8%;
+}  
+.favourite-symbol{
+    width: 2rem;
+    position: absolute;
+    top: 40%;
+    left: 0.8%;
+} 
+.settings-symbol{
+    width: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 0.8%;
+}
+.logout-symbol{
+    width: 2rem;
+    position: absolute;
+    top: 60%;
+    left: 0.8%;
+}

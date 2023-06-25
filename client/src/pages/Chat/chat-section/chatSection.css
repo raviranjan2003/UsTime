@@ -1,0 +1,17 @@
+.ChatSection{
+    display: grid;
+    grid-template-rows: 5.5rem 33rem 4.2rem;
+    grid: 1;
+}
+.Details_of_Person_or__Group{
+    width: auto;
+    border: 1px solid rgb(217, 197, 197);
+}
+.MessageArea{
+    width: auto;
+    border: 1px solid rgb(217, 197, 197);
+}
+.ChatBox{
+    width: auto;
+    border: 1px solid rgb(217, 197, 197);
+}

@@ -3,6 +3,9 @@
     "start": "concurrently \"cd server && npm start\" \"cd client && npm start\""
   },
   "dependencies": {
-    "concurrently": "^8.2.0"
+    "concurrently": "^8.2.0",
+    "react-router-dom": "^6.13.0",
+    "react-scripts": "^5.0.1",
+    "react-typing-effect": "^2.0.5"
   }
 }

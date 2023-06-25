@@ -1,0 +1,31 @@
+.MsgSection{
+    padding: 2rem;
+    border: 0.1em solid white;
+    border-image: linear-gradient(90deg,black,rgb(162, 154, 154),black) 1;
+    border-width:0 2px thin 2px;
+    width: auto;
+    height:5rem;
+    display: flex;
+    border-bottom-left-radius:0.5rem;
+    border-bottom-right-radius:0.5rem;
+    background-color: rgb(28, 24, 24);
+}
+.profile-pic-individual{
+    flex: 0.5;
+    height: 2.6em;
+    position: relative;
+    bottom: 80%;
+    border: 2px solid blue;    
+}
+.message-info{
+    flex: 2;
+}
+.msg-details{
+    position: relative;
+    bottom: 200%;
+    left: 20%;
+}
+.person-name{
+    font-size: 1.5rem;
+    padding: 0.2rem;
+}

@@ -1,0 +1,36 @@
+.chatBox {
+  display: grid;
+  grid-template-columns: 10% 10% 70% 10%;
+  background-color: rgb(37, 1, 1);
+  background-image: linear-gradient(90deg,black,rgb(30, 12, 12));
+}
+.emojis {
+  height: 3rem;
+  margin: 0.6rem 0rem 0rem 1rem;
+  border: 2px solid salmon;
+}
+.attachments {
+  height: 3rem;
+  margin: 0.6rem 0rem 0rem 1rem;
+  border: 2px solid salmon;
+}
+.typingArea {
+  border: 2px solid salmon;
+}
+.typingArea input {
+  background: #3e3d3d;
+  border-radius: 0.5rem;
+  padding-left: 2rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  color: #eee;
+  font-size: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.voiceRecord {
+  height: 3rem;
+  margin: 0.6rem 0rem 0rem 1rem;
+  border: 2px solid salmon;
+}
