@@ -6,7 +6,7 @@ dotenv.config();
 mongoose.set("strictQuery", false);
 const connectDB = () => {
   mongoose
-    .connect(process.env.MONGO_URI, {
+    .connect("mongodb://127.0.0.1:27017/ustime", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })

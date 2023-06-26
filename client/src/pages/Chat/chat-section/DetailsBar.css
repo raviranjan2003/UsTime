@@ -1,0 +1,36 @@
+.detailsBar{
+    height: 100%;
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    background-image: linear-gradient(90deg,black,rgb(30, 12, 12));    
+}
+.profile-pic_of_friend{
+    border: 2px solid red;
+}
+.profile-pic_of_friend img{
+    width: 5rem;
+    border-radius: 0.5rem;
+    position: relative;
+    top: 0.75rem;
+    left: 0.25rem;
+}
+.name_of_Person_or_group{
+    border: 2px solid red;
+}
+.friendName{
+    border: 2px solid red;
+    height: 70%;
+}
+.friendName h2{
+    position: relative;
+    top: 42%;
+}
+.menu{
+    border: 2px solid red;
+}
+.menu img{
+    width: 3rem;
+    position: relative;
+    top: 19%;
+    left: 25%;
+}

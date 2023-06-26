@@ -65,7 +65,7 @@ const Login = async (req, res) => {
               userId: user._id,
               expiresIn: maxAge,
             });
-          } else {
+          }else {
             res.status(400).json({
               message: "Incorrect password",
             });
