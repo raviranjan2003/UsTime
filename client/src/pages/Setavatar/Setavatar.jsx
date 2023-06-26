@@ -49,8 +49,7 @@ function Setavatar() {
     for (let i = 0; i < 4; i++) {
       setIsLoading(true);
       const image = await axios.get(
-        `${api}/${Math.round(Math.random() * 10000)}?apikey=${
-          process.env.REACT_APP_API_KEY
+        `${api}/${Math.round(Math.random() * 10000)}
         }`
       );
       const buffer = new Buffer.from(image.data);
