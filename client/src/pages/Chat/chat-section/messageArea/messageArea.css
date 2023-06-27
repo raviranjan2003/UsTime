@@ -1,0 +1,54 @@
+.messageArea {
+  width: auto;
+  height: 100%;
+  overflow-y: hidden;
+}
+.time {
+  display: block;
+  font-size: 12px;
+  margin: 8px 0 0;
+}
+.recieved-chats{
+    overflow: hidden;
+    margin: 2% 2%;
+    /* border: 2px solid green; */
+}
+.recieved-chats-inbox p {
+  display: inline-block;
+  max-width: 50%;
+  background-color: rgb(56, 51, 51);
+  height: auto;
+  border: 1px solid #0084FF;
+  background-color: rgb(161, 42, 42) none repeat scroll 0 0;
+  border-radius: 0.25rem;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px 10px 5px 12px;
+  flex: 1;
+  box-sizing: border-box;
+}
+.outgoing-chats {
+  overflow: hidden;
+  margin: 2% 2%;
+  /* border: 2px solid red; */
+}
+.outgoing-chats-inbox {
+    float:right;
+
+}
+.outgoing-chats-inbox p {
+  display: inline-block;
+  max-width: 100%;
+  background-color: rgb(28, 24, 24);
+  height: auto;
+  border: 1px solid #0084FF;
+  background-color: rgb(161, 42, 42) none repeat scroll 0 0;
+  border-radius: 0.25rem;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px 10px 5px 12px;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+

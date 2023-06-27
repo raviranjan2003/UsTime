@@ -1,5 +1,6 @@
 .UserOptions {
-  border: 2px solid goldenrod;
+  border: 2px solid white;
+  border-radius: 0.35rem;
   height: 5rem;
   display: flex;
 }
@@ -27,7 +28,6 @@
   left: 0.25rem;
 }
 .shortDetailsofUser {
-  border: 2px solid yellow;
   flex: 1;
   text-align: center;
 }

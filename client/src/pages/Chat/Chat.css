@@ -1,28 +1,30 @@
-.MainPageSection{
-    margin: 0px;
-    padding: 0px;
-    display: flex; 
-     
+.MainPageSection {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  border: 2rem solid black;
+  border-image: linear-gradient(135deg, black, rgb(30, 12, 12));
 }
 
-.main-page{
-    border: 1px solid rgb(217, 197, 197);
+.main-page {
+  /* border: 1px solid rgb(217, 197, 197); */
+  border-radius: 2px;
 }
-.utility_bar{
-    width: 4rem;
-    border: 1px solid grey;
-    display: flex;
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
-    background-color:rgba(21, 13, 13, 0.512);
-    background-image: linear-gradient(black,rgb(59, 57, 57));
+.utility_bar {
+  width: 4rem;
+  border: 1px solid grey;
+  display: flex;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  background-color: rgba(21, 13, 13, 0.512);
+  background-image: linear-gradient(black, rgb(59, 57, 57));
 }
 
-.chat_sideBar{
-    width: 30%;
-    height:95vh
+.chat_sideBar {
+  width: 30%;
+  height: 95vh;
 }
-.chatSection{
-    width: 70%;
-    height: 95vh;
+.chatSection {
+  width: 70%;
+  height: 95vh;
 }
