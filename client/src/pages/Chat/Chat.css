@@ -15,7 +15,7 @@
   border-radius: 2px;
 }
 .utility_bar {
-  height: 95vh;
+  height: 100%;
   width: 4rem;
   border: 1px solid grey;
   display: flex;
@@ -27,9 +27,9 @@
 
 .chat_sideBar {
   width: 30%;
-  height: 95vh;
+  height: 100%;
 }
 .chatSection {
   width: 70%;
-  height: 95vh;
+  height: 100%;
 }
