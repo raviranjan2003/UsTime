@@ -3,5 +3,6 @@
     font-size: 20px;
 }
 .PersonList{
-    height: 50%;
+    height: 85%;
+    overflow: hidden;    
 }

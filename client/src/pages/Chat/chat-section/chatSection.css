@@ -1,6 +1,6 @@
 .ChatSection{
     display: grid;
-    grid-template-rows: 5.5rem 33rem 4.2rem;
+    grid-template-rows: 5.5rem 45rem 4.2rem;
     grid: 1;
 }
 .Details_of_Person_or__Group{

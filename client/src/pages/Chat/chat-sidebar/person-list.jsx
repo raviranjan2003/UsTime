@@ -14,6 +14,10 @@ function PersonList(){
             <MessageSection/>
             <MessageSection/>
             <MessageSection/>
+            <MessageSection/>
+            <MessageSection/>
+            <MessageSection/>
+            <MessageSection/>
         </div>
         </>
     );

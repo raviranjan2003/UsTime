@@ -11,11 +11,12 @@
 .recieved-chats{
     overflow: hidden;
     margin: 2% 2%;
-    /* border: 2px solid green; */
 }
 .recieved-chats-inbox p {
+  color: white;
   display: inline-block;
-  max-width: 50%;
+  width: 50%;
+  max-width: 100%;
   background-color: rgb(56, 51, 51);
   height: auto;
   border: 1px solid #0084FF;
@@ -27,18 +28,24 @@
   flex: 1;
   box-sizing: border-box;
 }
+.recieved-chats-inbox{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-basis: 35%;
+  align-items: flex-end;
+}
 .outgoing-chats {
   overflow: hidden;
   margin: 2% 2%;
   /* border: 2px solid red; */
 }
-.outgoing-chats-inbox {
-    float:right;
-
+.outgoing-chats-msg{
+  float: right;
 }
 .outgoing-chats-inbox p {
   display: inline-block;
-  max-width: 100%;
+  max-width: 50%;
   background-color: rgb(28, 24, 24);
   height: auto;
   border: 1px solid #0084FF;
@@ -50,5 +57,6 @@
   flex: 1;
   box-sizing: border-box;
 }
+
 
 

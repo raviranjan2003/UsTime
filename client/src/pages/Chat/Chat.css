@@ -2,7 +2,10 @@
   margin: 0px;
   padding: 0px;
   display: flex;
-  border: 2rem solid black;
+  border-left: 6rem solid black;
+  border-right: 6rem solid black;
+  border-top: 2rem solid black;
+  border-bottom: 2rem solid black;
   border-image: linear-gradient(135deg, black, rgb(30, 12, 12));
 }
 

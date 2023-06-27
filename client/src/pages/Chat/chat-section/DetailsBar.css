@@ -28,12 +28,10 @@
     position: relative;
     top: 42%;
 }
-.menu{
-    /* border: 2px solid red; */
-}
+
 .menu img{
-    width: 3rem;
+    width: 2.5rem;
     position: relative;
-    top: 19%;
+    top: 24%;
     left: 25%;
 }
