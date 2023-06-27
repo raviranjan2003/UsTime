@@ -2,6 +2,7 @@
     display: grid;
     grid-template-rows: 5.5rem 45rem 4.2rem;
     grid: 1;
+    height: 100vh;
 }
 .Details_of_Person_or__Group{
     width: auto;

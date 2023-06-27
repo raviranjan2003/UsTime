@@ -7,6 +7,7 @@
   border-top: 2rem solid black;
   border-bottom: 2rem solid black;
   border-image: linear-gradient(135deg, black, rgb(30, 12, 12));
+  height: 100vh;
 }
 
 .main-page {
@@ -14,6 +15,7 @@
   border-radius: 2px;
 }
 .utility_bar {
+  height: 95vh;
   width: 4rem;
   border: 1px solid grey;
   display: flex;
