@@ -7,6 +7,7 @@ import Settings from "./pages/Settings";
 import Setavatar from "./pages/Setavatar/Setavatar";
 import "./App.css";
 import AuthContext from "./auth/authContext";
+import NotFound from "./pages/404/NotFound";
 
 function App() {
   const authContext = React.useContext(AuthContext);
@@ -15,12 +16,13 @@ function App() {
     <Router>
       <Routes>
         {authContext.isUserLoggedIn && <Route path="/" element={<Chat />} />}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        {!authContext.isUserLoggedIn && <Route path="/login" element={<Login />} />}
+        {!authContext.isUserLoggedIn && <Route path="/register" element={<Register />} />}
         {authContext.isUserLoggedIn && (
           <Route path="/settings" element={<Settings />} />
         )}
         <Route path="/setavatar" element={<Setavatar />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
