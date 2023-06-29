@@ -35,3 +35,24 @@
     top: 24%;
     left: 25%;
 }
+
+@media only screen and (max-width:1530px){
+    .friendName h2{
+        left: 7%;
+    }
+    .profile-pic_of_friend img{
+        top: 17%;
+        left: 30%;
+    }
+    
+}
+@media only screen and (max-width:1400px){
+    .friendName h2{
+        left: 7%;
+    }
+    .profile-pic_of_friend img{
+        top: 17%;
+        left: 30%;
+    }
+    
+}

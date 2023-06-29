@@ -4,16 +4,19 @@
   grid-template-columns: 10% 10% 70% 10%;
   background-color: rgb(37, 1, 1);
   background-image: linear-gradient(90deg,black,rgb(30, 12, 12));
+  display: flex;
 }
 .emojis { 
-  height: 2.5rem;
+  height: 2rem;
   margin: 0.6rem 0rem 0rem 1.5rem;
 }
 .attachments {
-  height: 2.5rem;
-  margin: 0.6rem 0rem 0rem 1rem;
+  height: 2rem;
+  margin: 0.6rem 0rem 0rem 1.5rem;
 }       
 .typingArea input {
+  position: relative;
+  left: 17%;
   background: #3e3d3d;
   border-radius: 0.5rem;
   padding-left: 2rem;
@@ -21,11 +24,73 @@
   padding-bottom: 0.4rem;
   color: #eee;
   font-size: 1rem;
-  width: 100%;
+  width: 355%;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+.sendBtn{
+  position: relative;
+  bottom: 78%;
+  left: 355%;
+  width: 1.7rem;
+}
 .voiceRecord {
-  height: 2.5rem;
+  height: 2rem;
   margin: 1rem 0rem 0.5rem 1.7rem;
+  position: relative;
+  left: 60%;
+  right: 53%;
+}
+
+  @media only screen and ((max-width:1650px )) {
+    .emojis{
+      height: 2rem;
+    }
+    .attachments{
+      height: 2rem;
+    }
+    .voiceRecord{
+      height: 2rem;
+      left: 51%;
+    }
+    .typingArea input{
+      width: 270%;
+    }
+    .sendBtn{
+      left: 270%;
+    }
+    
+  }
+@media only screen and ((max-width:1400px )) {
+  .typingArea input{
+    width: 225%;
+  }
+  .voiceRecord{
+    left: 43%;
+  }
+}
+@media only screen and ((max-width:1300px ) and (min-width:1280px)) {
+  .typingArea input{
+    width: 210%;
+  }
+  .voiceRecord{
+    left: 41%;
+  }
+}
+@media only screen and (max-width:1280px) and (min-width:1230px){
+  .typingArea input{
+    width: 200%;
+  }
+  .voiceRecord{
+    left: 39%;
+  }
+}
+
+@media only screen and (max-width:1230px) and (min-width:1170px){
+  .typingArea input{
+    width: 180%;
+  }
+  .voiceRecord{
+    left: 35%;
+  }
 }

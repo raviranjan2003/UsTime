@@ -4,5 +4,6 @@
 }
 .PersonList{
     height: 85%;
-    overflow: hidden;    
+    overflow:auto;
+    flex-grow: 1;    
 }
