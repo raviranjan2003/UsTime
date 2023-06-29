@@ -1,6 +1,5 @@
 import React from "react";
 import "./chatSection.css";
-import ChatBox from "./chatBox";
 import DetailsBar from "./DetailsBar";
 import MessageArea from "./messageArea/messageArea";
 function ChatSection() {
@@ -10,11 +9,8 @@ function ChatSection() {
         <div className="Details_of_Person_or__Group">
           <DetailsBar />
         </div>
-        <div className="MessageArea">
+        <div className="MessageArea_and_chatbox">
           <MessageArea />   
-        </div>
-        <div className="ChatBox">
-          <ChatBox />
         </div>
       </div>
     </>
