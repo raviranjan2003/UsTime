@@ -1,7 +1,7 @@
 .messageArea {
   width: auto;
   height: 100%;
-  overflow-y: hidden;
+  overflow: auto;
 }
 .time {
   display: block;
@@ -12,7 +12,7 @@
     overflow: hidden;
     margin: 2% 2%;
 }
-.recieved-chats-inbox p {
+.recieved-chats-inbox{
   color: white;
   display: inline-block;
   width: 50%;
@@ -43,7 +43,7 @@
 .outgoing-chats-msg{
   float: right;
 }
-.outgoing-chats-inbox p {
+.outgoing-chats-inbox {
   display: inline-block;
   max-width: 50%;
   background-color: rgb(28, 24, 24);
@@ -59,4 +59,6 @@
 }
 
 
+.message-container{
 
+}

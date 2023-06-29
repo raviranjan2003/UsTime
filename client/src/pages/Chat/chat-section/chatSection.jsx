@@ -9,8 +9,10 @@ function ChatSection() {
         <div className="Details_of_Person_or__Group">
           <DetailsBar />
         </div>
-        <div className="MessageArea_and_chatbox">
+        <div className="MessageArea">
           <MessageArea />   
+        </div>
+        <div className="ChatBox">
         </div>
       </div>
     </>
