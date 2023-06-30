@@ -8,6 +8,7 @@ const setProfilePicture = async (req, res) => {
       userId,
       {
         $set: { avatarImage: avatarImage },
+        $setOnInsert: { isAvatarImageSet: true },
       },
       {
         new: true,

@@ -12,20 +12,18 @@ const createToken = (id) => {
 const Register = async (req, res) => {
   const { username, name, email, password } = req.body;
   try {
-    await User.findOne({ email }).then((user) => {
-      if (user) {
-        return res.status(400).json({
-          message: "User already exists",
-        });
-      }
-    });
-    await User.findOne({ username }).then((user) => {
-      if (user) {
-        return res.status(400).json({
-          message: "Username already exists",
-        });
-      }
-    });
+    if (await User.findOne({ username })) {
+      return res.status(208).json({
+        message: "Username not available!",
+        isError: true,
+      });
+    }
+    if (await User.findOne({ email })) {
+      return res.status(208).json({
+        message: "Email already registered!",
+        isError: true,
+      });
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
       username,
@@ -56,19 +54,31 @@ const Login = async (req, res) => {
           message: "User not found",
         });
       } else {
-          const isMatch = await bcrypt.compare(password, user.password);
-          if (isMatch) {
-            const token = createToken(user._id);
-            res.status(200).json({
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (isMatch) {
+          const token = createToken(user._id);
+          if (user.isFirstLogin) {
+            user.isFirstLogin = false;
+            await user.save();
+            return res.status(200).json({
               token: token,
               userId: user._id,
               expiresIn: maxAge,
+              isFirstLogin: true,
             });
-          }else {
-            res.status(400).json({
-              message: "Incorrect password",
+          } else {
+            return res.status(200).json({
+              token: token,
+              userId: user._id,
+              expiresIn: maxAge,
+              isFirstLogin: false,
             });
           }
+        } else {
+          return res.status(208).json({
+            message: "Incorrect password",
+          });
+        }
       }
     });
   } catch (error) {
