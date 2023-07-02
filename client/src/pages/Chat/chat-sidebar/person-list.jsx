@@ -2,12 +2,12 @@ import React from 'react'
 import './chat-list.css';
 import MessageSection from './msgSection';
     
-function PersonList(){
+function PersonList({name,messsage}){
     return(
         <>
         <div className="PersonList">
             <header className=""></header>
-            <MessageSection/>
+            <MessageSection name ={name} message={messsage}/>
             <MessageSection/>
             <MessageSection/>
             <MessageSection/>

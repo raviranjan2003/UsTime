@@ -2,53 +2,48 @@ import React from "react";
 import "./messageArea.css";
 import "./chatBox.css";
 import { useState } from "react";
-// time
 
 function MessageArea() {
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
-  // Function to handle sending a new message
   const sendMessage = () => {
-    if (newMessage.trim() !== "") {
-      console.log("message sent successfully");
-      const updatedMessages = [...messages, newMessage];
-      setMessages(updatedMessages);
-      setNewMessage("");
+    if (inputValue.trim() !== "") {
+      const newMessage = {
+        text: inputValue,
+        timestamp: new Date().getTime(),
+      };
+
+      setMessages([...messages, newMessage]);
+      setInputValue("");
     }
+  };
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const formatTimestamp = (timestamp) => {
+    const options = {
+      hour: "numeric",
+      minute: "numeric"
+    };
+    return new Date(timestamp).toLocaleString(undefined, options);
   };
   return (
     <>
       <div className="messageArea">
-        <div className="recieved-chats">
-          <div className="recieved-chats-msg">
-            <div className="recieved-chats-inbox">
-                {messages.map((message, index) => (
-                  <div key={index} className="message-container">
-                    <span className="message-text">{message.text}</span>
-                    <span className="message-timestamp">
-                      {new Date(message.timestamp).toLocaleTimeString()}
-                    </span>
-                  </div>
-                ))}
+        <div className="mainMessageArea">
+        {messages.map((message, index = 0) => (
+          <div className="message-container">
+            <div className="text">
+            <span className="message-text">{message.text}</span>
             </div>
+            <span className="message-timestamp">
+              {formatTimestamp(message.timestamp)}  
+            </span>
           </div>
-          <div className="recieved-chats-img"></div>
-        </div>
-        <div className="outgoing-chats">
-          <div className="outgoing-chats-msg">
-            <div className="outgoing-chats-inbox">
-              {messages.map((message, index) => (
-                <div key={index} className="message-container">
-                  <span className="message-text">{message.text}</span>
-                  <span className="message-timestamp">
-                    {new Date(message.timestamp).toLocaleTimeString()}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="outgoing-chats-img"></div>
+        ))}
         </div>
       </div>
       <div className="chatBox">
@@ -57,9 +52,9 @@ function MessageArea() {
         <div className="typingArea">
           <input
             type="text"
-            placeholder="Type Here"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
+            placeholder="Type a message"
+            value={inputValue}
+            onChange={handleInputChange }
           />
           <img
             className="sendBtn"

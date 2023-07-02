@@ -12,8 +12,7 @@ function ChatSection() {
         <div className="MessageArea">
           <MessageArea />   
         </div>
-        <div className="ChatBox">
-        </div>
+        
       </div>
     </>
   );

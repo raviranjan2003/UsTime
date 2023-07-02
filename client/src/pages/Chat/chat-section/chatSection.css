@@ -1,6 +1,6 @@
 .ChatSection{
     display: grid;
-    grid-template-rows: 10% 80% 10%;
+    grid-template-rows: 10% 80%;
     grid: 1;
     height: 100%;
 }
@@ -10,11 +10,6 @@
     border-radius: 0.35rem;
 }
 .MessageArea{
-    width: auto;
-    border: 2px solid white;
-    border-radius: 0.35rem;
-}
-.ChatBox{
     width: auto;
     border: 2px solid white;
     border-radius: 0.35rem;

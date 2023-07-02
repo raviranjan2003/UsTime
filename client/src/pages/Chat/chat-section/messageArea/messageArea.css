@@ -1,64 +1,35 @@
 .messageArea {
   width: auto;
   height: 100%;
-  overflow: auto;
 }
-.time {
-  display: block;
-  font-size: 12px;
-  margin: 8px 0 0;
-}
-.recieved-chats{
-    overflow: hidden;
-    margin: 2% 2%;
-}
-.recieved-chats-inbox{
-  color: white;
-  display: inline-block;
-  width: 50%;
-  max-width: 100%;
-  background-color: rgb(56, 51, 51);
-  height: auto;
-  border: 1px solid #0084FF;
-  background-color: rgb(161, 42, 42) none repeat scroll 0 0;
-  border-radius: 0.25rem;
-  font-size: 14px;
-  margin: 0;
-  padding: 5px 10px 5px 12px;
-  flex: 1;
-  box-sizing: border-box;
-}
-.recieved-chats-inbox{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  flex-basis: 35%;
-  align-items: flex-end;
-}
-.outgoing-chats {
-  overflow: hidden;
-  margin: 2% 2%;
+
+.mainMessageArea{
+  width: auto;
+  position: sticky;
+  top:90%;
+  overflow-y: scroll  ;
   /* border: 2px solid red; */
 }
-.outgoing-chats-msg{
-  float: right;
-}
-.outgoing-chats-inbox {
-  display: inline-block;
-  max-width: 50%;
-  background-color: rgb(28, 24, 24);
-  height: auto;
-  border: 1px solid #0084FF;
-  background-color: rgb(161, 42, 42) none repeat scroll 0 0;
-  border-radius: 0.25rem;
-  font-size: 14px;
-  margin: 0;
-  padding: 5px 10px 5px 12px;
-  flex: 1;
-  box-sizing: border-box;
-}
-
 
 .message-container{
-
+  display: flex;
+  flex-direction: column;
+}
+.text{
+  display: inline-block;
+  margin: 1rem 1rem 0.5rem 1rem;
+}
+.message-text{
+  max-width: 50%;
+  max-height: 50%;
+  overflow: hidden;
+  background-color: rgb(49, 47, 47);
+  border-radius: 0.25rem;
+  border: 1px solid #0084FF;
+  padding: 0.25rem;
+}
+.message-timestamp{
+  color: white;
+  font-size: 12px;
+  margin-left: 1rem;
 }
