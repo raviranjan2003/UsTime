@@ -5,29 +5,66 @@ import "./Login.css";
 import axios from "axios";
 import { baseUrl } from "../../API/api.js";
 import AuthContext from "../../auth/authContext";
+import Loader from "../../components/Loader/Loader";
+import { BiError } from 'react-icons/bi';
 
 function Login() {
   const [usernameoremail, setUsernameoremail] = useState("");
   const [Password, setPassword] = useState("");
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
+  const [passwordError, setpasswordError] = useState('');
+  const [fieldError, setfieldError] = useState('');
+  const [userError, setuserError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
-      await axios.post(`${baseUrl}/auth/login`, {
-        usernameoremail: usernameoremail,
-        password: Password,
-      })
+    setIsLoading(true);
+    if (usernameoremail === '' || Password === '') {
+      setfieldError('Please fill all the fields');
+      setTimeout(() => {
+        setfieldError(null);
+      }, 3000);
+      return;
+    }
+    await axios.post(`${baseUrl}/auth/login`, {
+      usernameoremail: usernameoremail,
+      password: Password,
+    })
       .then((res) => {
         if (res.status === 200) {
           const user = {
             token: res.data.token,
             userId: res.data.userId,
             expiresIn: res.data.expiresIn,
+            isFirstLogin: res.data.isFirstLogin,
           }
           authContext.login(user);
+          // if (!res.data.isFirstLogin) {
           navigate("/");
-        } else {
-          alert(res.data.message);
+          // }
+        } else if (res.status === 208) {
+          setIsLoading(false);
+          if (res.data.message.includes('User')) {
+            setuserError(res.data.message);
+            setTimeout(() => {
+              setuserError(null);
+            }, 3000);
+            return;
+          } else if (res.data.message.includes('password')) {
+            setpasswordError(res.data.message);
+            setTimeout(() => {
+              setpasswordError(null);
+            }, 3000);
+            return;
+          }
+        }
+        else {
+          setfieldError(res.data.message);
+          setTimeout(() => {
+            setfieldError(null);
+          }, 3000);
+          return;
         }
       })
       .catch((err) => {
@@ -36,63 +73,73 @@ function Login() {
   }
 
   return (
-    <main className="register">
-      <div className="register_container">
-        <div className="register_logo">
-          <div className="register_logo_container">
-            <img
-              src="/images/UT.png"
-              alt="UsTime Logo"
-              className="register_logo_img"
-            />
-          </div>
-          <div className="register_logo_desc">
-            <h1 className="register_logo_heading">
-              Welcome to <span className="app_name">UsTime</span>
-            </h1>
-            <p className="register_logo_tagline">
-              Spend quality time with your{" "}
-              <span className="typing">
-                <ReactTypingEffect
-                  text={[" Family.", " Friends.", " Relatives."]}
-                  speed={100}
-                  eraseSpeed={100}
-                  eraseDelay={1000}
-                  typingDelay={1000}
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <main className="register">
+          <div className="register_container">
+            <div className="register_logo">
+              <div className="register_logo_container">
+                <img
+                  src="/images/UT.png"
+                  alt="UsTime Logo"
+                  className="register_logo_img"
                 />
-              </span>
-            </p>
+              </div>
+              <div className="register_logo_desc">
+                <h1 className="register_logo_heading">
+                  Welcome to <span className="app_name">UsTime</span>
+                </h1>
+                <p className="register_logo_tagline">
+                  Spend quality time with your{" "}
+                  <span className="typing">
+                    <ReactTypingEffect
+                      text={[" Family.", " Friends.", " Relatives."]}
+                      speed={100}
+                      eraseSpeed={100}
+                      eraseDelay={1000}
+                      typingDelay={1000}
+                    />
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div className="register_field">
+              {fieldError && <p class="error_text"><BiError /> {fieldError}</p>}
+              <form className="register_field_name">
+                <input
+                  type="text"
+                  placeholder="Username / Email"
+                  onChange={(e) => setUsernameoremail(e.target.value)}
+                  autoComplete="off"
+                  required
+                />
+                {userError && <p class="error_text"><BiError /> {userError}</p>}
+                <input
+                  type="password"
+                  placeholder="Password"
+                  required
+                  autoComplete="off"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                {passwordError && <p class="error_text"><BiError /> {passwordError}</p>}
+              </form>
+              <div className="register_field_button">
+                <button className="register_btn" onClick={handleLogin}>Login</button>
+                <p>
+                  Don't have an account ?{" "}
+                  <Link to="/register">
+                    <span className="register_login_link">Register</span>
+                  </Link>
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="register_field">
-          <form className="register_field_name">
-            <input
-              type="text"
-              placeholder="Username / Email"
-              onChange={(e) => setUsernameoremail(e.target.value)}
-              autoComplete="off"
-              required
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              required
-              autoComplete="off"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </form>
-          <div className="register_field_button">
-            <button className="register_btn" onClick={handleLogin}>Login</button>
-            <p>
-              Don't have an account ?{" "}
-              <Link to="/register">
-                <span className="register_login_link">Register</span>
-              </Link>
-            </p>
-          </div>
-        </div>
-      </div>
-    </main>
+        </main>
+      )
+      }
+    </>
   );
 }
 

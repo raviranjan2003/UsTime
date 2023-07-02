@@ -39,8 +39,12 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem('expiryDate', expiryDate.toISOString());
     userLoggedIn = true;
     const remainingTime = calculateRemainingTime(expiryDate);
-    console.log(remainingTime)
     setTimeout(logoutHandler, remainingTime);
+    if (user.isFirstLogin) {
+      console.log(user.isFirstLogin)
+      window.location.assign('http://localhost:3000/setavatar')
+      return;
+    }
   }
 
   const contextValue = {

@@ -21,7 +21,7 @@ function App() {
         {authContext.isUserLoggedIn && (
           <Route path="/settings" element={<Settings />} />
         )}
-        <Route path="/setavatar" element={<Setavatar />} />
+        {authContext.isUserLoggedIn && <Route path="/setavatar" element={<Setavatar />} />}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

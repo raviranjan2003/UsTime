@@ -6,36 +6,44 @@ import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../API/api.js";
 import Loader from "../../components/Loader/Loader";
 import AuthContext from "../../auth/authContext";
+import { BiError } from 'react-icons/bi';
 
 function Setavatar() {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
   const [avatars, setAvatars] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [avatarError, setavatarError] = useState('');
+
   const api = `https://api.multiavatar.com/`;
   const [selectedAvatar, setSelectedAvatar] = useState(undefined);
 
   const setProfile = async() => {
     if (selectedAvatar === undefined) {
-      alert("Please select an avatar");
+      setavatarError('Please choose an avatar!')
+      setTimeout(() => {
+        setavatarError(null);
+      }, 3000);
       return;
     } else {
       const data = {
         avatar: avatars[selectedAvatar],
       };
       try {
+        console.log(authContext.userId)
         await axios.post(
           `${baseUrl}/user/avatar/${authContext.userId}`,
-          data,
-          {
-            headers: {
-              Authorization: `Bearer ${authContext.token}`,
-            },
-          }
+          data
         )
         .then((res) => {
         if (res.status === 200) {
           navigate("/");
+        } else {
+          setavatarError(res.data.message);
+          setTimeout(() => {
+            setavatarError(null);
+          }, 3000);
+          return;
         }
       });
       } catch (error) {
@@ -48,14 +56,17 @@ function Setavatar() {
     const data = [];
     for (let i = 0; i < 4; i++) {
       setIsLoading(true);
-      const image = await axios.get(
+      await axios.get(
         `${api}/${Math.round(Math.random() * 10000)}
         }`
-      );
-      const buffer = new Buffer.from(image.data);
-      const base64 = buffer.toString("base64");
-      data.push(base64);
-      setIsLoading(false);
+      ).then((image) => {
+        const buffer = new Buffer.from(image.data);
+        const base64 = buffer.toString("base64");
+        data.push(base64);
+      }).catch((error) => {
+        alert('Avatar is not available currently!')
+        navigate('/');
+      })
     }
     setAvatars(data);
     setIsLoading(false);
@@ -96,6 +107,7 @@ function Setavatar() {
               })}
             </div>
             <div className="avatar_button_container">
+            {avatarError && <p class="error_text"><BiError /> {avatarError}</p>}
               <button
                 onClick={setProfile}
                 className="avatar_button"

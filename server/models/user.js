@@ -19,6 +19,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  isFirstLogin: {
+    type: Boolean,
+    default: true,
+  },
   isAvatarImageSet: {
     type: Boolean,
     default: false,
