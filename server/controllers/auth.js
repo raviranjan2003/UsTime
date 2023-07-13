@@ -9,6 +9,40 @@ const createToken = (id) => {
   });
 };
 
+const googleOAuthRegister = async (req, res) => {
+  const { username, name, email, password } = req.body;
+  try {
+    if (await User.findOne({ username })) {
+      return res.status(208).json({
+        message: "Username not available!",
+        isError: true,
+      });
+    }
+    if (await User.findOne({ email })) {
+      return res.status(208).json({
+        message: "Email already registered!",
+        isError: true,
+      });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({
+      username,
+      name,
+      email,
+      password: hashedPassword,
+    });
+    await newUser.save();
+    res.status(200).json({
+      message: "User registered successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+}
+
 const Register = async (req, res) => {
   const { username, name, email, password } = req.body;
   try {
@@ -89,4 +123,4 @@ const Login = async (req, res) => {
   }
 };
 
-export { Register, Login };
+export { Register, Login, googleOAuthRegister };

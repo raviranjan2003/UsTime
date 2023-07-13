@@ -4,6 +4,7 @@ export const baseUrl = 'http://localhost:4000';
 export const localUrlIns = axios.create({
   baseURL: baseUrl,
   'withCredentials':true,
+  'mode':'cors',
   headers: {
     'Content-Type': 'multipart/form-data',
     'Accept':'application/json',

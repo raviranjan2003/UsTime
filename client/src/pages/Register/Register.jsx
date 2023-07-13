@@ -5,7 +5,13 @@ import ReactTypingEffect from "react-typing-effect";
 import axios from "axios";
 import { baseUrl } from "../../API/api";
 import Loader from "../../components/Loader/Loader";
-import { BiError } from 'react-icons/bi';
+import { BiCloudLightRain, BiError } from 'react-icons/bi';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
+import jwt_decode from "jwt-decode";
+
+const clietId = '601397706760-3od9siogho9pvcivv36tr8a0oe7mruo6.apps.googleusercontent.com';
+
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -19,6 +25,7 @@ function Register() {
   const [userNameError, setUserNameError] = useState(null);
   const [emptyFieldError, setEmptyFieldError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
+
 
   const userData = {
     username,
@@ -128,6 +135,60 @@ function Register() {
                   </span>
                 </p>
               </div>
+            </div>
+            <div className="register_google">
+              <GoogleOAuthProvider clientId={clietId}>
+                <GoogleLogin
+                  onSuccess={credentialResponse => {
+                    let decoded = jwt_decode(credentialResponse.credential);
+                    let user = {
+                      username: decoded.sub,
+                      name: decoded.name,
+                      email: decoded.email,
+                      password: decoded.sub 
+                    }
+                    axios.post(`${baseUrl}/auth/google/register`, user)
+                      .then((res) => {
+                        if (res.status === 200) {
+                          navigate("/login");
+                        }
+                        else if (res.status === 208) {
+                          if (res.data.message.includes("Email")) {
+                            setEmailError(res.data.message);
+                            setTimeout(() => {
+                              setEmailError(null);
+                            }, 3000);
+                            return;
+                          } else if (res.data.message.includes('Username')) {
+                            setUserNameError(res.data.message);
+                            setTimeout(() => {
+                              setUserNameError(null);
+                            }, 3000);
+                            return;
+                          } else {
+                            setEmptyFieldError(res.data.message);
+                            setTimeout(() => {
+                              setEmptyFieldError(null);
+                            }, 3000);
+                            return;
+                          }
+                        }
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        alert(err);
+                      });
+                  }}
+                  onError={() => {
+                    console.log('Login Failed');
+                  }}
+                />
+              </GoogleOAuthProvider>
+            </div>
+            <div className="register_or">
+              <hr className="register_or_line" />
+              <p className="register_or_text">OR</p>
+              <hr className="register_or_line" />
             </div>
             <form className="register_field">
               <div className="register_field_name">
