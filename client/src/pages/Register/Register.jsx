@@ -39,39 +39,39 @@ function Register() {
   const registerUser = async () => {
     if (verified) {
       setIsLoading(true);
-    await axios
-      .post(`${baseUrl}/auth/register`, userData)
-      .then((res) => {
-        setIsLoading(false);
-        if (res.status === 200) {
-          navigate("/login");
-        }
-        else if (res.status === 208) {
-          if (res.data.message.includes("Email")) {
-            setEmailError(res.data.message);
-            setTimeout(() => {
-              setEmailError(null);
-            }, 3000);
-            return;
-          } else if (res.data.message.includes('Username')) {
-            setUserNameError(res.data.message);
-            setTimeout(() => {
-              setUserNameError(null);
-            }, 3000);
-            return;
-          } else {
-            setEmptyFieldError(res.data.message);
-            setTimeout(() => {
-              setEmptyFieldError(null);
-            }, 3000);
-            return;
+      await axios
+        .post(`${baseUrl}/auth/register`, userData)
+        .then((res) => {
+          setIsLoading(false);
+          if (res.status === 200) {
+            navigate("/login");
           }
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err.response.data.message);
-      });
+          else if (res.status === 208) {
+            if (res.data.message.includes("Email")) {
+              setEmailError(res.data.message);
+              setTimeout(() => {
+                setEmailError(null);
+              }, 3000);
+              return;
+            } else if (res.data.message.includes('Username')) {
+              setUserNameError(res.data.message);
+              setTimeout(() => {
+                setUserNameError(null);
+              }, 3000);
+              return;
+            } else {
+              setEmptyFieldError(res.data.message);
+              setTimeout(() => {
+                setEmptyFieldError(null);
+              }, 3000);
+              return;
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err.response.data.message);
+        });
     } else {
       alert('reCAPTCHA invalid!')
     }
@@ -183,75 +183,77 @@ function Register() {
                 </p>
               </div>
             </div>
-            <div className="register_google">
-              <GoogleOAuthProvider clientId={clietId}>
-                <GoogleLogin
-                  onSuccess={credentialResponse => { handleGoogleRegister(credentialResponse) }}
-                  onError={() => {
-                    console.log('Registration Failed');
-                  }}
-                />
-              </GoogleOAuthProvider>
-            </div>
-            <div className="register_or">
-              <hr className="register_or_line" />
-              <p className="register_or_text">OR</p>
-              <hr className="register_or_line" />
-            </div>
-            <form className="register_field">
-              <div className="register_field_name">
-                {emptyFieldError && <p class="error_text"><BiError /> {emptyFieldError}</p>}
-                <input
-                  type="text"
-                  onChange={(e) => {
-                    setUsername(e.target.value);
-                  }}
-                  placeholder="Username"
-                />
-                {userNameError && <p class="error_text"><BiError /> {userNameError}</p>}
-                <input
-                  type="text"
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Name"
-                />
-                <input
-                  type="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
-                />
-                {emailError && <p class="error_text"><BiError /> {emailError}</p>}
-                <input
-                  type="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
-                  autoComplete="off"
-                />
-                <input
-                  type="password"
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="Confirm Password"
-                  autoComplete="off"
-                />
-                {passwordError && <p class="error_text"><BiError /> {passwordError}</p>}
-                <div>
-                <ReCAPTCHA
-                    sitekey="6LcMAR8nAAAAAKgi7ExqFEx6_VD7hMwABlKL2BgU"
-                    onChange={() => { setVerified(true)}}
+            <div className="register_method">
+              <div className="register_google">
+                <GoogleOAuthProvider clientId={clietId}>
+                  <GoogleLogin
+                    onSuccess={credentialResponse => { handleGoogleRegister(credentialResponse) }}
+                    onError={() => {
+                      console.log('Registration Failed');
+                    }}
                   />
+                </GoogleOAuthProvider>
+              </div>
+              <div className="register_or">
+                <div className="register_or_line">---------</div>
+                <p className="register_or_text">OR</p>
+                <div className="register_or_line">---------</div>
+              </div>
+              <form className="register_field">
+                <div className="register_field_name">
+                  {emptyFieldError && <p class="error_text"><BiError /> {emptyFieldError}</p>}
+                  <input
+                    type="text"
+                    onChange={(e) => {
+                      setUsername(e.target.value);
+                    }}
+                    placeholder="Username"
+                  />
+                  {userNameError && <p class="error_text"><BiError /> {userNameError}</p>}
+                  <input
+                    type="text"
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Name"
+                  />
+                  <input
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                  />
+                  {emailError && <p class="error_text"><BiError /> {emailError}</p>}
+                  <input
+                    type="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                    autoComplete="off"
+                  />
+                  <input
+                    type="password"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Confirm Password"
+                    autoComplete="off"
+                  />
+                  {passwordError && <p class="error_text"><BiError /> {passwordError}</p>}
+                  <div className="register_recaptcha">
+                    <ReCAPTCHA
+                      sitekey="6LcMAR8nAAAAAKgi7ExqFEx6_VD7hMwABlKL2BgU"
+                      onChange={() => { setVerified(true) }}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="register_field_button">
-                <button className="register_btn" type="button" disabled={!verified} onClick={(e) => handleRegister(e)}>
-                  Register
-                </button>
-                <p>
-                  Already have an account ?{" "}
-                  <Link to="/login">
-                    <span className="register_login_link">Login</span>
-                  </Link>
-                </p>
-              </div>
-            </form>
+                <div className="register_field_button">
+                  <button className="register_btn" type="button" disabled={!verified} onClick={(e) => handleRegister(e)}>
+                    Register
+                  </button>
+                  <p className="register_account_text">
+                    Already have an account ?{" "}
+                    <Link to="/login">
+                      <span className="register_login_link">Login</span>
+                    </Link>
+                  </p>
+                </div>
+              </form>
+            </div>
           </div>
         </main>
       )}
