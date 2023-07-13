@@ -23,19 +23,8 @@ function Login() {
   const [userError, setuserError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = async () => {
-    setIsLoading(true);
-    if (usernameoremail === '' || Password === '') {
-      setfieldError('Please fill all the fields');
-      setTimeout(() => {
-        setfieldError(null);
-      }, 3000);
-      return;
-    }
-    await axios.post(`${baseUrl}/auth/login`, {
-      usernameoremail: usernameoremail,
-      password: Password,
-    })
+  const handleLogin = async (userData) => {
+    await axios.post(`${baseUrl}/auth/login`, userData)
       .then((res) => {
         if (res.status === 200) {
           const user = {
@@ -77,6 +66,31 @@ function Login() {
       });
   }
 
+  const handleLoginSubmit = async () => {
+    setIsLoading(true);
+    if (usernameoremail === '' || Password === '') {
+      setfieldError('Please fill all the fields');
+      setTimeout(() => {
+        setfieldError(null);
+      }, 3000);
+      return;
+    }
+    const userData = {
+      usernameoremail: usernameoremail,
+      password: Password,
+    }
+    handleLogin(userData);
+  }
+
+  const handleGoogleLogin = async (credentialResponse) => {
+    let decoded = jwt_decode(credentialResponse.credential);
+    let user = {
+      usernameoremail: decoded.email,
+      password: decoded.sub
+    }
+    handleLogin(user);
+  }
+
   return (
     <>
       {isLoading ? (
@@ -113,46 +127,7 @@ function Login() {
             <div className="register_google">
               <GoogleOAuthProvider clientId={clietId}>
                 <GoogleLogin
-                  onSuccess={credentialResponse => {
-                    let decoded = jwt_decode(credentialResponse.credential);
-                    let user = {
-                      usernameoremail: decoded.email,
-                      password: decoded.sub
-                    }
-                    axios.post(`${baseUrl}/auth/login`, user)
-                      .then((res) => {
-                        if (res.status === 200) {
-                          const user = {
-                            token: res.data.token,
-                            userId: res.data.userId,
-                            expiresIn: res.data.expiresIn,
-                            isFirstLogin: res.data.isFirstLogin,
-                          }
-                          authContext.login(user);
-                          // if (!res.data.isFirstLogin) {
-                          navigate("/");
-                        }
-                        else if (res.status === 208) {
-                          if (res.data.message.includes("User")) {
-                            setuserError(res.data.message);
-                            setTimeout(() => {
-                              setuserError(null);
-                            }, 3000);
-                            return;
-                          } else if (res.data.message.includes("password")) {
-                            setpasswordError(res.data.message);
-                            setTimeout(() => {
-                              setpasswordError(null);
-                            }, 3000);
-                            return;
-                          }
-                        }
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                        alert(err);
-                      });
-                  }}
+                  onSuccess={credentialResponse => {handleGoogleLogin(credentialResponse)}}
                   onError={() => {
                     console.log('Login Failed');
                   }}
@@ -185,7 +160,7 @@ function Login() {
                 {passwordError && <p class="error_text"><BiError /> {passwordError}</p>}
               </form>
               <div className="register_field_button">
-                <button className="register_btn" onClick={handleLogin}>Login</button>
+                <button className="register_btn" onClick={handleLoginSubmit}>Login</button>
                 <p>
                   Don't have an account ?{" "}
                   <Link to="/register">
