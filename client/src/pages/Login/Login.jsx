@@ -135,10 +135,10 @@ function Login() {
                 />
               </GoogleOAuthProvider>
             </div>
-            <div className="register_or">
-              <hr className="register_or_line" />
-              <p className="register_or_text">OR</p>
-              <hr className="register_or_line" />
+            <div className="login_or">
+              <div className="login_or_line"></div>
+              <p className="login_or_text">OR</p>
+              <div className="login_or_line"></div>
             </div>
             <div className="register_field">
               {fieldError && <p class="error_text"><BiError /> {fieldError}</p>}
@@ -162,7 +162,7 @@ function Login() {
               </form>
               <div className="register_field_button">
                 <button className="register_btn" onClick={(e) => {handleLoginSubmit(e)}}>Login</button>
-                <p>
+                <p className="register_account_text">
                   Don't have an account ?{" "}
                   <Link to="/register">
                     <span className="register_login_link">Register</span>

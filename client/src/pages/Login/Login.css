@@ -110,6 +110,27 @@
   font-weight: 500;
 }
 
+.login_or {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  color: transparent;
+  padding: 0.5rem 0 1rem;
+  width: 80%;
+}
+
+.login_or_line {
+  width: 100%;
+  height: 0%;
+  border: 1px solid #40719ea1;
+}
+
+.login_or_text {
+  color: #0084FF;
+  font-weight: 600;
+}
+
 @media screen and (max-width: 565px) {
   .register {
     height: 100vh;
