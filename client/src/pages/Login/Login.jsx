@@ -7,6 +7,11 @@ import { baseUrl } from "../../API/api.js";
 import AuthContext from "../../auth/authContext";
 import Loader from "../../components/Loader/Loader";
 import { BiError } from 'react-icons/bi';
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
+
+const clietId = '601397706760-3od9siogho9pvcivv36tr8a0oe7mruo6.apps.googleusercontent.com';
 
 function Login() {
   const [usernameoremail, setUsernameoremail] = useState("");
@@ -104,6 +109,60 @@ function Login() {
                   </span>
                 </p>
               </div>
+            </div>
+            <div className="register_google">
+              <GoogleOAuthProvider clientId={clietId}>
+                <GoogleLogin
+                  onSuccess={credentialResponse => {
+                    let decoded = jwt_decode(credentialResponse.credential);
+                    let user = {
+                      usernameoremail: decoded.email,
+                      password: decoded.sub
+                    }
+                    axios.post(`${baseUrl}/auth/login`, user)
+                      .then((res) => {
+                        if (res.status === 200) {
+                          const user = {
+                            token: res.data.token,
+                            userId: res.data.userId,
+                            expiresIn: res.data.expiresIn,
+                            isFirstLogin: res.data.isFirstLogin,
+                          }
+                          authContext.login(user);
+                          // if (!res.data.isFirstLogin) {
+                          navigate("/");
+                        }
+                        else if (res.status === 208) {
+                          if (res.data.message.includes("User")) {
+                            setuserError(res.data.message);
+                            setTimeout(() => {
+                              setuserError(null);
+                            }, 3000);
+                            return;
+                          } else if (res.data.message.includes("password")) {
+                            setpasswordError(res.data.message);
+                            setTimeout(() => {
+                              setpasswordError(null);
+                            }, 3000);
+                            return;
+                          }
+                        }
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        alert(err);
+                      });
+                  }}
+                  onError={() => {
+                    console.log('Login Failed');
+                  }}
+                />
+              </GoogleOAuthProvider>
+            </div>
+            <div className="register_or">
+              <hr className="register_or_line" />
+              <p className="register_or_text">OR</p>
+              <hr className="register_or_line" />
             </div>
             <div className="register_field">
               {fieldError && <p class="error_text"><BiError /> {fieldError}</p>}

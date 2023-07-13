@@ -5,7 +5,7 @@ import ReactTypingEffect from "react-typing-effect";
 import axios from "axios";
 import { baseUrl } from "../../API/api";
 import Loader from "../../components/Loader/Loader";
-import { BiCloudLightRain, BiError } from 'react-icons/bi';
+import { BiError } from 'react-icons/bi';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import jwt_decode from "jwt-decode";
@@ -180,7 +180,7 @@ function Register() {
                       });
                   }}
                   onError={() => {
-                    console.log('Login Failed');
+                    console.log('Registration Failed');
                   }}
                 />
               </GoogleOAuthProvider>
