@@ -58,19 +58,16 @@
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
-  width: 80%;
+  width: 83%;
 }
 
 .register_field input {
-  display: flex;
   background: #3e3d3d;
   border: none;
   border-radius: 0.25rem;
   padding: 1rem 0.6rem;
   color: var(--font-color);
   font-size: 1rem;
-  width: 100%;
-  margin: 0 auto;
   margin-bottom: 1rem;
 }
 
@@ -101,6 +98,11 @@
   transform: translateY(0.5px);
 }
 
+.register_btn:disabled {
+  cursor: not-allowed;
+  background-color: #0063cc;
+  opacity: 0.3;
+}
 .register_login_link {
   color: #0084FF;
   text-decoration: none;

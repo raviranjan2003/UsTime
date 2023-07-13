@@ -9,6 +9,7 @@ import { BiError } from 'react-icons/bi';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
 import jwt_decode from "jwt-decode";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const clietId = '601397706760-3od9siogho9pvcivv36tr8a0oe7mruo6.apps.googleusercontent.com';
 
@@ -25,6 +26,7 @@ function Register() {
   const [userNameError, setUserNameError] = useState(null);
   const [emptyFieldError, setEmptyFieldError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
+  const [verified, setVerified] = useState(false);
 
 
   const userData = {
@@ -35,7 +37,8 @@ function Register() {
   };
 
   const registerUser = async () => {
-    setIsLoading(true);
+    if (verified) {
+      setIsLoading(true);
     await axios
       .post(`${baseUrl}/auth/register`, userData)
       .then((res) => {
@@ -69,6 +72,9 @@ function Register() {
         console.log(err);
         alert(err.response.data.message);
       });
+    } else {
+      alert('reCAPTCHA invalid!')
+    }
   };
 
   const handleRegister = (e) => {
@@ -105,43 +111,43 @@ function Register() {
 
   const handleGoogleRegister = (credentialResponse) => {
     let decoded = jwt_decode(credentialResponse.credential);
-                    let user = {
-                      username: decoded.sub,
-                      name: decoded.name,
-                      email: decoded.email,
-                      password: decoded.sub 
-                    }
-                    axios.post(`${baseUrl}/auth/google/register`, user)
-                      .then((res) => {
-                        if (res.status === 200) {
-                          navigate("/login");
-                        }
-                        else if (res.status === 208) {
-                          if (res.data.message.includes("Email")) {
-                            setEmailError(res.data.message);
-                            setTimeout(() => {
-                              setEmailError(null);
-                            }, 3000);
-                            return;
-                          } else if (res.data.message.includes('Username')) {
-                            setUserNameError(res.data.message);
-                            setTimeout(() => {
-                              setUserNameError(null);
-                            }, 3000);
-                            return;
-                          } else {
-                            setEmptyFieldError(res.data.message);
-                            setTimeout(() => {
-                              setEmptyFieldError(null);
-                            }, 3000);
-                            return;
-                          }
-                        }
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                        alert(err);
-                      });
+    let user = {
+      username: decoded.sub,
+      name: decoded.name,
+      email: decoded.email,
+      password: decoded.sub
+    }
+    axios.post(`${baseUrl}/auth/google/register`, user)
+      .then((res) => {
+        if (res.status === 200) {
+          navigate("/login");
+        }
+        else if (res.status === 208) {
+          if (res.data.message.includes("Email")) {
+            setEmailError(res.data.message);
+            setTimeout(() => {
+              setEmailError(null);
+            }, 3000);
+            return;
+          } else if (res.data.message.includes('Username')) {
+            setUserNameError(res.data.message);
+            setTimeout(() => {
+              setUserNameError(null);
+            }, 3000);
+            return;
+          } else {
+            setEmptyFieldError(res.data.message);
+            setTimeout(() => {
+              setEmptyFieldError(null);
+            }, 3000);
+            return;
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err);
+      });
   }
 
   return (
@@ -180,7 +186,7 @@ function Register() {
             <div className="register_google">
               <GoogleOAuthProvider clientId={clietId}>
                 <GoogleLogin
-                  onSuccess={credentialResponse => {handleGoogleRegister(credentialResponse)}}
+                  onSuccess={credentialResponse => { handleGoogleRegister(credentialResponse) }}
                   onError={() => {
                     console.log('Registration Failed');
                   }}
@@ -227,9 +233,15 @@ function Register() {
                   autoComplete="off"
                 />
                 {passwordError && <p class="error_text"><BiError /> {passwordError}</p>}
+                <div>
+                <ReCAPTCHA
+                    sitekey="6LcMAR8nAAAAAKgi7ExqFEx6_VD7hMwABlKL2BgU"
+                    onChange={() => { setVerified(true)}}
+                  />
+                </div>
               </div>
               <div className="register_field_button">
-                <button className="register_btn" onClick={(e) => handleRegister(e)}>
+                <button className="register_btn" type="button" disabled={!verified} onClick={(e) => handleRegister(e)}>
                   Register
                 </button>
                 <p>
