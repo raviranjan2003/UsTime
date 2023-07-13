@@ -66,7 +66,8 @@ function Login() {
       });
   }
 
-  const handleLoginSubmit = async () => {
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
     setIsLoading(true);
     if (usernameoremail === '' || Password === '') {
       setfieldError('Please fill all the fields');
@@ -160,7 +161,7 @@ function Login() {
                 {passwordError && <p class="error_text"><BiError /> {passwordError}</p>}
               </form>
               <div className="register_field_button">
-                <button className="register_btn" onClick={handleLoginSubmit}>Login</button>
+                <button className="register_btn" onClick={(e) => {handleLoginSubmit(e)}}>Login</button>
                 <p>
                   Don't have an account ?{" "}
                   <Link to="/register">
