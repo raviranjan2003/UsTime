@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-// import chatRoutes from "./routes/chatRoutes.js";  
+import chatRoutes from "./routes/chatRoutes.js";  
 connectDB();
 dotenv.config();
 const app = express();

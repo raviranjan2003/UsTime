@@ -1,42 +1,45 @@
 import React from "react";
 import "./messageArea.css";
 import "./chatBox.css";
-import { useState } from "react";
-import axios from "axios";
-import { baseUrl } from "../../../../API/api";
-
+import { useEffect, useState } from "react";
 
 function MessageArea() {
   const [messages, setMessages] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const [messageInput, setMessageInput] = useState("");
 
-  const sendMessage = async (message,event) => {
-    if (inputValue.trim() !== "") {
-      const newMessage = {
-        text: inputValue,
-        timestamp: new Date().getTime(),
-      };
-      
-      setMessages([...messages, newMessage]);
-      setInputValue("");
-      await axios.post(`${baseUrl}`,message)
-      .then((res)=>{
-        res.send();
-        console.log(res);
-      }).catch(error=>{
-        console.error(error);
-      })  
-    }
+  useEffect(() => {
+    const socket = new  WebSocket('http://localhost:3000/')
+  socket.addEventListener('message', (event) => {
+    setMessages([...messages, newMessage]);
+    setMessageInput("");
+  });
+    return () => {
+      socket.close();
+    };
+  }, [])
+
+  const sendMessage = () => {
+    if (messageInput.trim() === '') return;
+    const newMessage = {
+      content: messageInput,
+      timestamp: new Date().toISOString(),
+    };
+    setMessages((prevMessages) => [...prevMessages,newMessage]);
+    const socket = new WebSocket('ws://localhost:3000');
+    socket.addEventListener('open', () => {
+      socket.send(JSON.stringify(newMessage));
+      setMessageInput('');
+    });
   };
 
   const handleKeyPress = (event) =>{
     if(event.key === 'Enter'){
       sendMessage();
-      setInputValue("");
+      setMessageInput("");
     }
   }
   const handleInputChange = (event) => {
-    setInputValue(event.target.value);
+    setMessageInput(event.target.value);
   };
 
   const formatTimestamp = (timestamp) => {
