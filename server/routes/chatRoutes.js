@@ -1,6 +1,6 @@
 import express from "express";
 
-import { fetchMessages, sendMessage } from "./../controllers/chat";
+import { fetchMessages, sendMessage } from "../controllers/chat.js";
 
 const router = express.Router();
 

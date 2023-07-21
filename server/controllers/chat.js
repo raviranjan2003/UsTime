@@ -1,5 +1,5 @@
-import MessageModel from "./../models/chat";
-// import asyncHandler form 'express-async-handler'
+import MessageModel from "./../models/chat.js";
+import asyncHandler from 'express-async-handler';
 
 const fetchMessages = asyncHandler(async (req, res) => {
   const { chatId } = req.params;
@@ -67,5 +67,5 @@ const sendMessage = asyncHandler(async(req,res)=>{
   res.status(201).json(populatedMessage);
 })
 
-export default {fetchMessages, sendMessage};
+export {fetchMessages, sendMessage};
  
