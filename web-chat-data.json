@@ -1,0 +1,59 @@
+{
+    "users": [
+        {
+            "recieverName": "Shubham",
+            "message":[],
+            "dp": [],
+            "sendTime": ""     
+        },
+        {
+            "recieverName": "Ravi",
+            "message":[],
+            "dp": [],
+            "sendTime": ""     
+
+        },
+        {
+            "recieverName": "Satyam",
+            "message":[],
+            "dp": [],
+            "sendTime": ""    
+        },
+        {
+            "recieverName": "CP",
+            "message":[],
+            "dp": [],
+            "sendTime": ""     
+        },
+        {
+            "recieverName": "Kritagya",
+            "message":[],
+            "dp": [],
+            "sendTime": ""     
+        },
+        {
+            "recieverName": "Shudhanshu",
+            "message":[],
+            "dp": [],
+            "sendTime": ""     
+        },
+        {
+            "recieverName": "Tofique",
+            "message":[],
+            "dp": [],
+            "sendTime": ""     
+        },
+        {
+            "recieverName": "Aditya",
+            "message":[],
+            "dp": [],  
+            "sendTime": ""    
+        },
+        {
+            "recieverName": "Ankit",
+            "message":[],
+            "dp": [],
+            "sendTime": ""    
+        }
+    ]   
+}

@@ -2,23 +2,39 @@ import React from "react";
 import "./messageArea.css";
 import "./chatBox.css";
 import { useState } from "react";
+import axios from "axios";
+import { baseUrl } from "../../../../API/api";
+
 
 function MessageArea() {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
-  const sendMessage = () => {
+  const sendMessage = async (message,event) => {
     if (inputValue.trim() !== "") {
       const newMessage = {
         text: inputValue,
         timestamp: new Date().getTime(),
       };
-
+      
       setMessages([...messages, newMessage]);
       setInputValue("");
+      await axios.post(`${baseUrl}`,message)
+      .then((res)=>{
+        res.send();
+        console.log(res);
+      }).catch(error=>{
+        console.error(error);
+      })  
     }
   };
 
+  const handleKeyPress = (event) =>{
+    if(event.key === 'Enter'){
+      sendMessage();
+      setInputValue("");
+    }
+  }
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -54,7 +70,8 @@ function MessageArea() {
             type="text"
             placeholder="Type a message"
             value={inputValue}
-            onChange={handleInputChange }
+            onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
           />
           <img
             className="sendBtn"

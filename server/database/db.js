@@ -4,9 +4,12 @@ import colors from "colors";
 
 dotenv.config();
 mongoose.set("strictQuery", false);
+
+const DB = process.env.MONGO_URI.replace("<JWT_SECRET>", process.env.JWT_SECRET);
+
 const connectDB = () => {
   mongoose
-    .connect("mongodb://127.0.0.1:27017/ustime", {
+    .connect(DB, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
