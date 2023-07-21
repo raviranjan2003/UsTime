@@ -72,7 +72,7 @@ function MessageArea() {
           <input
             type="text"
             placeholder="Type a message"
-            value={inputValue}
+            value={setMessageInput}
             onChange={handleInputChange}
             onKeyPress={handleKeyPress}
           />
